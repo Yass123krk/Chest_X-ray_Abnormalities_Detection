@@ -69,44 +69,57 @@ Chest_X-ray_Abnormalities_Detection/
 ## Dataset
 
 ### 1. VinBigData Chest X-ray Dataset
-The dataset used for this project is the **VinBigData Chest X-ray Dataset**, consisting of 18,000 chest X-ray images. These images are annotated with 14 different thoracic abnormalities, such as:
+The dataset used for this project is the **VinBigData Chest X-ray Dataset**, consisting of 18,000 chest X-ray images. These images are annotated with 14 different thoracic abnormalities:
 
 - Aortic enlargement
-- Atelectasis
 - Cardiomegaly
-- Pleural effusion
+- Pleural thickening
 - Pulmonary fibrosis
+- Nodule/Mass
+- Lung opacity
+- Pleural effusion
+- Other lesion
+- Infiltration
+- ILD (Interstitial Lung Disease)
+- Calcification
+- Consolidation
+- Atelectasis
+- Pneumothorax
 
-This dataset serves as a comprehensive foundation for training models to detect these abnormalities, improving diagnostic accuracy through automation.
+This dataset provides a comprehensive foundation for training models to detect various abnormalities, which significantly aids in automating diagnostic processes.
 
 <p align="center">
   <img src="./Images/Figure1.png" alt="Distribution of Thoracic Abnormalities in the Dataset" />
 </p>
 
-### 2. DICOM Format and Image Conversion
-The original chest X-ray images are stored in **DICOM (Digital Imaging and Communications in Medicine)** format, which is the standard for storing medical imaging data. DICOM images contain metadata about the image, patient, and study, which is essential in a clinical setting but less relevant for machine learning model training.
+### 2. Data Preprocessing
+The preprocessing of this dataset is pivotal to ensuring its compatibility with machine learning models and optimizing the computational load during training and analysis. This stage encompasses several essential steps:
 
-To simplify the processing pipeline, the DICOM images are converted to **PNG** format. PNG images are smaller and easier to handle while retaining the necessary quality for accurate anomaly detection. The conversion allows for faster data loading and efficient use of GPU resources during model training.
-
-<p align="center">
-  <img src="./Images/Figure5.png" alt="DICOM to PNG Conversion Example" />
-</p>
+### 1. Conversion to PNG
+To facilitate easier manipulation and compatibility with a broader range of image processing tools, the X-ray images were converted from the original **DICOM format** to **PNG format**. This conversion not only reduces file sizes significantly (from approximately 200 GB to around 0.5 GB) but also simplifies the application of image processing techniques, which is crucial for large-scale model training.
 
 <p align="center">
-  <img src="./Images/Figure6.png" alt="Comparison of Original vs. Resized X-ray Images" />
+  <img src="./Images/Figure5.png" alt="DICOM to PNG Conversion" />
 </p>
 
+### 2. Image Resizing
+The images were resized to two standard resolutions: **256x256** and **512x512** pixels. Resizing serves several purposes:
+- **Reduced computational resource requirements**: Smaller images require less memory and processing power, speeding up model training and reducing hardware constraints.
+- **Faster training times**: Training on smaller images accelerates the overall process.
+- **Decreased risk of overfitting**: Smaller images limit the number of learnable parameters, preventing the model from overfitting to the data.
+- **Consistency**: Using standardized image sizes ensures uniformity, which is essential for batch processing in most deep learning frameworks.
+
+<p align="center">
+  <img src="./Images/Figure6.png" alt="Image Resizing for Preprocessing" />
+</p>
+
+### 3. Monochromatism Correction
+Some images in the dataset exhibited **monochromatism**, which could skew the results and lead to misinterpretations by computer vision models. A specific preprocessing step was applied to correct these monochrome images, ensuring consistency in visual data representation. This correction ensures that all images have similar chromatic properties, allowing the model to learn features effectively without being confused by variations in intensity and contrast.
+
+<p align="center">
+  <img src="./Images/Figure7.png" alt="Monochromatism Correction Process" />
+</p>
 ### 3. Data Split
-The dataset is split into three subsets to allow for training, validation, and testing:
-
-- **Training Set**: The majority of the data is used to train the model, learning patterns associated with various abnormalities.
-- **Validation Set**: A smaller portion is reserved for fine-tuning hyperparameters and assessing model performance during training.
-- **Testing Set**: The final subset is used for evaluating the model's ability to generalize to new, unseen data.
-
-<p align="center">
-  <img src="./Images/Figure3.png" alt="Bounding Box Area Distribution in the Dataset" />
-</p>
-
-
+v
 
 
