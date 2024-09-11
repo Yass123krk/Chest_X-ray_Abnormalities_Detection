@@ -89,7 +89,7 @@ The dataset used for this project is the **VinBigData Chest X-ray Dataset**, con
 This dataset provides a comprehensive foundation for training models to detect various abnormalities, which significantly aids in automating diagnostic processes.
 
 <p align="center">
-  <img src="./Images/Figure1.png" alt="Distribution of Thoracic Abnormalities in the Dataset" />
+  <img src="./Images/Figure2.png" alt="Distribution of Thoracic Abnormalities in the Dataset" />
 </p>
 
 ### 2. Data Preprocessing
@@ -110,16 +110,24 @@ The images were resized to two standard resolutions: **256x256** and **512x512**
 - **Consistency**: Using standardized image sizes ensures uniformity, which is essential for batch processing in most deep learning frameworks.
 
 <p align="center">
-  <img src="./Images/Figure6.png" alt="Image Resizing for Preprocessing" />
+  <img src="./Images/Figure5.png" alt="Image Resizing for Preprocessing" />
 </p>
 
 ### 3. Monochromatism Correction
 Some images in the dataset exhibited **monochromatism**, which could skew the results and lead to misinterpretations by computer vision models. A specific preprocessing step was applied to correct these monochrome images, ensuring consistency in visual data representation. This correction ensures that all images have similar chromatic properties, allowing the model to learn features effectively without being confused by variations in intensity and contrast.
 
 <p align="center">
-  <img src="./Images/Figure7.png" alt="Monochromatism Correction Process" />
+  <img src="./Images/Figure6.png" alt="Monochromatism Correction Process" />
 </p>
 ### 3. Data Split
-v
+The dataset is divided into three subsets to allow for training, validation, and testing:
+
+- **Training Set**: The majority of the data is used for training the model, learning the patterns associated with the different abnormalities.
+- **Validation Set**: A smaller subset is used during model training to adjust hyperparameters and monitor performance.
+- **Testing Set**: This final subset is held back to assess the model’s performance on unseen data.
+
+<p align="center">
+  <img src="./Images/Figure3.png" alt="Bounding Box Area Distribution in the Dataset" />
+</p>
 
 
