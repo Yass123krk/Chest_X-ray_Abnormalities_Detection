@@ -208,10 +208,51 @@ Data augmentation plays a critical role in improving the model's robustness by a
   <img src="./Images/Figure8.png" alt="Data Augmentation Techniques" />
 </p>
 
-### Conclusion
-By applying a variety of augmentation techniques, the training dataset was effectively expanded, increasing the model's exposure to different variations of chest X-rays. This step is crucial for improving the model's generalization capability, allowing it to better identify thoracic abnormalities across a wide range of cases.
-
 ---
+## Methodology
+
+The project methodology outlines the key steps taken to develop the AI-based solution for detecting thoracic abnormalities in chest X-ray images. This process covers everything from dataset preparation to model evaluation and testing.
+
+### 1. Model Architecture
+
+The deep learning model used for this project is built on top of **Detectron2**, a state-of-the-art object detection framework developed by Facebook AI Research. The architecture used is the **ResNet-50 + FPN (Feature Pyramid Network)**, which is well-suited for object detection tasks in medical imaging due to its ability to capture both high and low-level features across different image resolutions.
+
+- **ResNet-50**: A deep residual network with 50 layers, which helps in learning complex patterns in images while avoiding issues like vanishing gradients.
+- **FPN**: A feature extraction module that aggregates information across multiple scales, allowing the model to perform better in detecting smaller abnormalities in medical images.
+
+The model was fine-tuned on the **VinBigData dataset**, pre-trained on the **COCO dataset** for better generalization. Fine-tuning ensures that the model learns to recognize thoracic abnormalities while leveraging the general object detection capabilities from COCO pretraining.
+
+### 2. Training Procedure
+
+The model was trained using the **Adam optimizer**, with a learning rate scheduler that adjusts the rate dynamically based on validation performance. The training process involved several critical steps:
+
+- **Data Augmentation**: As discussed earlier, augmentation techniques were applied during training to prevent overfitting and to expose the model to a diverse set of images.
+- **Loss Function**: A **Cross-Entropy Loss** function was used for classification tasks, and **Smooth L1 Loss** for bounding box regression to ensure accurate localization of abnormalities.
+- **Batch Size**: The model was trained with a batch size of 16 to maintain a balance between training speed and memory usage, especially when using GPUs.
+
+### 3. Evaluation Metrics
+
+Several metrics were employed to evaluate the performance of the trained model:
+
+- **Average Precision (AP) at IoU thresholds**: Used to evaluate how well the model detects and localizes thoracic abnormalities. We report AP at IoU thresholds of **0.40**, **0.50**, and **0.75** for different lesion types.
+- **F1-Score**: Combines precision and recall, measuring the model’s overall performance in detecting true positives while minimizing false positives.
+- **ROC-AUC Score**: Evaluates how well the model distinguishes between abnormal and normal cases across different threshold settings.
+
+<p align="center">
+  <img src="./Images/Figure9.png" alt="Model Training Process and Loss Curve" />
+</p>
+
+### 4. Validation and Testing
+
+The model was validated on a holdout set of images from the **VinBigData** dataset. Additionally, it was tested on unseen data to ensure that it can generalize well beyond the training set.
+
+- **Validation**: Performance was monitored during training using the validation set, with adjustments made to hyperparameters as needed.
+- **Testing**: The model was then evaluated on the test set, which was not exposed during training, providing a reliable estimate of its real-world performance.
+
+
+### 5. Model Deployment
+
+Once the model was trained and evaluated, it was saved for deployment using **Detectron2’s model export functionality**. The model can now be used to process chest X-rays in real-time for abnormality detection, offering a valuable tool for healthcare systems.
 
 
 
