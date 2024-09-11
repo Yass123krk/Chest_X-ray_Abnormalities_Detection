@@ -1,5 +1,5 @@
 # Chest X-ray Abnormalities Detection
-
+---
 ## Project Overview
 
 ### 1. Introduction
@@ -17,3 +17,50 @@ By automating the detection process, this project helps reduce the workload on r
 - **Develop a robust AI model** capable of detecting 14 specific thoracic conditions, including aortic enlargement, atelectasis, and cardiomegaly.
 - **Alleviate the workload on radiologists** by providing an AI-assisted tool that can quickly and accurately identify abnormalities in chest X-rays.
 - **Ensure consistent and accurate diagnostic predictions**, improving the reliability of healthcare diagnostics and reducing variability in radiologic interpretation.
+
+----
+## Repository Structure
+
+The repository is organized as follows:
+
+Chest_X-ray_Abnormalities_Detection/
+│
+├── Images/                                      # Contains figures used in the README and project report
+│   ├── Figure1.png                              # Pie chart of abnormality distribution
+│   ├── ...                                      # Annotations per class
+├── Proc_data/                                   # Processed datasets (original sizes)
+│   ├── train/                                   # Training data images
+│   ├── test/                                    # Test data images
+│   ├── Original_Image_Dimensions.csv            # CSV file with original image dimensions
+│   ├── Test_Image_Dimensions.csv                # CSV file with test image dimensions
+│   ├── train.csv                                # Training dataset metadata
+│   └── sample_submission.csv                    # Sample submission file
+│
+├── proc_data_512/                               # Resized dataset (512x512)
+│   ├── train/                                   # Resized training data
+│   ├── test/                                    # Resized test data
+│   ├── Original_Image_Dimensions.csv            # CSV file with original image dimensions for resized data
+│   └── Test_Image_Dimensions.csv                # CSV file with test image dimensions for resized data
+│
+├── results/                                     # Model results and logs
+│   ├── debug/                                   # Debugging data, logs, and final model checkpoints
+│   │   ├── inference/                           # Inference results
+│   │   ├── AP40.png                             # Average precision curve at IoU 0.40
+│   │   ├── loss.png                             # Training loss plot
+│   │   ├── flags.yaml                           # Model training configuration
+│   │   └── metrics.json                         # Performance metrics for debugging
+│   ├── det/                                     # Final detection results
+│   │   ├── vinbigdata_0_aug0.jpg                # Example detection results for image 0
+│   │   ├── vinbigdata_1_aug0.jpg                # Example detection results for image 1
+│   └── test_512x512/                            # Test set results
+│       └── submission.csv                       # CSV file for submission
+│
+├── v20/                                         # Model training metrics for version 20
+│   └── metrics.json                             # JSON file containing metrics for this model version
+│
+├── DataResize.ipynb                             # Jupyter notebook for resizing the dataset images
+├── DataVisualisation.ipynb                      # Notebook for visualizing and analyzing the dataset
+├── ModelTraining.ipynb                          # Notebook for training the model
+├── ModelTesting.ipynb                           # Notebook for testing and evaluating the trained model
+├── Report.pdf                                   # Full project report detailing methodology and results
+└── requirements.txt                             # Project dependencies and libraries
