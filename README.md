@@ -238,13 +238,17 @@ The training pipeline incorporated various strategies to optimize the model’s 
 
 ### 3. Evaluation Metrics
 
-The model’s performance was evaluated using various industry-standard metrics:
+To measure the model's performance, a combination of advanced evaluation tools and metrics were employed:
 
-- **Average Precision (AP) at IoU thresholds**: A key metric for object detection models, used to measure the model’s ability to accurately detect and localize abnormalities. AP was calculated at **IoU thresholds of 0.40, 0.50, and 0.75**, providing insight into detection precision across varying overlap thresholds.
+- **Custom COCO Evaluator**: A **COCO Evaluator** was used to compute **Average Precision (AP)** at multiple IoU thresholds, including **AP40**. The COCO Evaluator ensures that the model is accurately detecting and localizing abnormalities at different levels of overlap.
 
-- **F1-Score**: This metric is a balance between precision and recall, measuring the model’s effectiveness in detecting true positives while minimizing false positives.
+- **LossEvalHook**: The **LossEvalHook** was used to continuously monitor the training and validation losses during the training process, ensuring that the model doesn’t overfit. It allowed for real-time adjustment of hyperparameters.
 
-- **ROC-AUC Score**: The **Receiver Operating Characteristic - Area Under the Curve** was used to evaluate the model’s capacity to distinguish between normal and abnormal cases, offering a robust measure of overall model performance.
+- **Continuous Monitoring of Training and Validation Loss**: Both training and validation losses were visualized throughout the process, with early stopping applied when necessary to maintain generalization.
+
+- **F1-Score**: This metric combines precision and recall to measure the balance between false positives and true positives.
+  
+- **ROC-AUC Score**: Used to evaluate how well the model distinguishes between normal and abnormal cases across various thresholds.
 
 <p align="center">
   <img src="./Images/Figure9.png" alt="Model Training Process and Loss Curve" />
