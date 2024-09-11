@@ -92,17 +92,15 @@ This dataset provides a comprehensive foundation for training models to detect v
   <img src="./Images/Figure2.png" alt="Distribution of Thoracic Abnormalities in the Dataset" />
 </p>
 
+---
 ### 2. Data Preprocessing
 The preprocessing of this dataset is pivotal to ensuring its compatibility with machine learning models and optimizing the computational load during training and analysis. This stage encompasses several essential steps:
 
-### 1. Conversion to PNG
+### 2.1. Conversion to PNG
 To facilitate easier manipulation and compatibility with a broader range of image processing tools, the X-ray images were converted from the original **DICOM format** to **PNG format**. This conversion not only reduces file sizes significantly (from approximately 200 GB to around 0.5 GB) but also simplifies the application of image processing techniques, which is crucial for large-scale model training.
 
-<p align="center">
-  <img src="./Images/Figure5.png" alt="DICOM to PNG Conversion" />
-</p>
 
-### 2. Image Resizing
+### 2.2. Image Resizing
 The images were resized to two standard resolutions: **256x256** and **512x512** pixels. Resizing serves several purposes:
 - **Reduced computational resource requirements**: Smaller images require less memory and processing power, speeding up model training and reducing hardware constraints.
 - **Faster training times**: Training on smaller images accelerates the overall process.
@@ -113,7 +111,7 @@ The images were resized to two standard resolutions: **256x256** and **512x512**
   <img src="./Images/Figure5.png" alt="Image Resizing for Preprocessing" />
 </p>
 
-### 3. Monochromatism Correction
+### 2.3. Monochromatism Correction
 Some images in the dataset exhibited **monochromatism**, which could skew the results and lead to misinterpretations by computer vision models. A specific preprocessing step was applied to correct these monochrome images, ensuring consistency in visual data representation. This correction ensures that all images have similar chromatic properties, allowing the model to learn features effectively without being confused by variations in intensity and contrast.
 
 <p align="center">
