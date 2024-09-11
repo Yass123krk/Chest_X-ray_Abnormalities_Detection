@@ -1,5 +1,7 @@
 # Chest X-ray Abnormalities Detection
+
 ---
+
 ## Project Overview
 
 ### 1. Introduction
@@ -19,6 +21,7 @@ By automating the detection process, this project helps reduce the workload on r
 - **Ensure consistent and accurate diagnostic predictions**, improving the reliability of healthcare diagnostics and reducing variability in radiologic interpretation.
 
 ----
+
 ## Repository Structure
 
 The repository is organized as follows:
@@ -66,6 +69,7 @@ Chest_X-ray_Abnormalities_Detection/
 └── requirements.txt                             # Project dependencies and libraries
 ```
 ---
+
 ## Dataset
 
 ### 1. VinBigData Chest X-ray Dataset
@@ -128,5 +132,46 @@ The dataset is divided into three subsets to allow for training, validation, and
 <p align="center">
   <img src="./Images/Figure3.png" alt="Bounding Box Area Distribution in the Dataset" />
 </p>
+
+---
+
+## System Requirements
+
+To run this project efficiently, a system with adequate computational resources is necessary due to the large dataset and intensive model training involved. Below are the recommended hardware and software specifications:
+
+### 1. Hardware Requirements
+- **Minimum RAM**: 8 GB (16 GB recommended)
+- **Processor**: Quad-core CPU or higher (recommended for parallel processing during model training)
+- **Storage**: At least 50 GB of free disk space for datasets, models, and results
+- **GPU (optional but highly recommended)**: A CUDA-compatible GPU (e.g., NVIDIA) is suggested for faster training of the deep learning models, particularly when using TensorFlow or PyTorch.
+
+### 2. Software Requirements
+- **Operating System**: Windows, macOS, or Linux
+- **Python Version**: Python 3.8 or higher is required due to dependencies on newer libraries.
+- **CUDA Toolkit (optional)**: Required for leveraging GPU-based training (only if using a compatible NVIDIA GPU)
+
+### 3. Key Libraries and Tools
+This project relies on several open-source libraries and tools to preprocess the data, train the model, and evaluate its performance.
+
+#### 3.1. Programming Languages
+- **Python 3.8+**: The primary programming language used for data preprocessing, model training, and evaluation.
+
+#### 3.2. Machine Learning Frameworks
+- **PyTorch**: The main deep learning framework used to train the object detection model.
+- **Detectron2**: A Facebook AI Research (FAIR) library built on PyTorch, used for implementing object detection tasks.
+  
+#### 3.3. Data Handling and Visualization Libraries
+- **NumPy**: For handling multi-dimensional arrays and performing mathematical operations.
+- **Pandas**: Used for data manipulation, handling CSV files, and processing dataset metadata.
+- **OpenCV**: Utilized for image manipulation, resizing, and transformations.
+- **Matplotlib** and **Seaborn**: Libraries for data visualization and graphical representation of model performance metrics.
+
+#### 3.4. Additional Libraries
+- **Albumentations**: A fast and flexible image augmentation library for advanced image transformations, which is essential for augmenting the dataset to increase diversity.
+  
+To install all the required libraries, run the following command:
+
+```bash
+pip install -r requirements.txt
 
 
