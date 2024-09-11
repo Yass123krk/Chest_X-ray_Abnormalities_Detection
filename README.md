@@ -176,6 +176,41 @@ The dataset is divided into three subsets to allow for training, validation, and
   <img src="./Images/Figure3.png" alt="Bounding Box Area Distribution in the Dataset" />
 </p>
 
+### 4. Data Augmentation
+
+Data augmentation plays a critical role in improving the model's robustness by artificially increasing the diversity of the training data. For this project, various augmentation techniques were applied to ensure that the model can generalize better to unseen data. These techniques help create variations in the dataset and prevent overfitting. The **Albumentations** library was used for implementing these augmentation methods due to its flexibility and efficiency.
+
+### 4.1. Horizontal and Vertical Flips
+- **Purpose**: Simulate different orientations of the chest X-rays that a radiologist might encounter.
+- **Benefit**: The model becomes more invariant to the orientation of the input images, improving its ability to detect abnormalities in any orientation.
+
+### 4.2. Rotation and Scaling
+- **Purpose**: Apply small rotations and scaling transformations to simulate positional variations of the X-ray images.
+- **Benefit**: Allows the model to better recognize features in images with slight variations in orientation or size.
+
+### 4.3. Brightness and Contrast Adjustment
+- **Purpose**: Vary the brightness and contrast of images to mimic real-world variations in X-ray scans due to different machine settings or exposure times.
+- **Benefit**: Helps the model become more resilient to differences in image brightness and contrast, ensuring that it can detect abnormalities regardless of exposure conditions.
+
+### 4.4. Noise Injection
+- **Purpose**: Introduce random noise to the images.
+- **Benefit**: Improves the model’s robustness to noisy input data, which is common in real-world medical imaging where X-rays may have artifacts.
+
+### 4.5. Random Cropping and Padding
+- **Purpose**: Randomly crop sections of the images and apply padding to introduce spatial variation.
+- **Benefit**: Ensures that the model can handle variations in image framing and positioning while maintaining the integrity of important features.
+
+### 4.6. Elastic Transformations
+- **Purpose**: Slightly distort images using elastic transformations to mimic variations in the shape and structure of anatomical features.
+- **Benefit**: Helps the model learn to detect abnormalities even if the shape of certain structures varies slightly between different patients.
+
+<p align="center">
+  <img src="./Images/Figure8.png" alt="Data Augmentation Techniques" />
+</p>
+
+### Conclusion
+By applying a variety of augmentation techniques, the training dataset was effectively expanded, increasing the model's exposure to different variations of chest X-rays. This step is crucial for improving the model's generalization capability, allowing it to better identify thoracic abnormalities across a wide range of cases.
+
 ---
 
 
