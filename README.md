@@ -74,6 +74,8 @@ Chest_X-ray_Abnormalities_Detection/
 
 To run this project efficiently, a system with adequate computational resources is necessary due to the large dataset and intensive model training involved. Below are the recommended hardware and software specifications:
 
+<p align="center"> <img src="./Images/Figure4.png" alt="Tools and Libraries Used in the Project" /> </p>
+
 ### 1. Hardware Requirements
 - **Minimum RAM**: 8 GB (16 GB recommended)
 - **Processor**: Quad-core CPU or higher (recommended for parallel processing during model training)
