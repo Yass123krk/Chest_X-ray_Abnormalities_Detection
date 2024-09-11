@@ -92,7 +92,7 @@ This dataset provides a comprehensive foundation for training models to detect v
   <img src="./Images/Figure2.png" alt="Distribution of Thoracic Abnormalities in the Dataset" />
 </p>
 
----
+
 ### 2. Data Preprocessing
 The preprocessing of this dataset is pivotal to ensuring its compatibility with machine learning models and optimizing the computational load during training and analysis. This stage encompasses several essential steps:
 
@@ -117,6 +117,7 @@ Some images in the dataset exhibited **monochromatism**, which could skew the re
 <p align="center">
   <img src="./Images/Figure6.png" alt="Monochromatism Correction Process" />
 </p>
+
 ### 3. Data Split
 The dataset is divided into three subsets to allow for training, validation, and testing:
 
