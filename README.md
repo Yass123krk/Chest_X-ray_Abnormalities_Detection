@@ -262,17 +262,91 @@ Once trained, the model was subjected to validation and testing processes to ens
 
 - **Testing**: The model’s final performance was evaluated on an unseen test set to assess its generalization capability. This provided a reliable indicator of how well the model would perform in real-world scenarios outside the controlled training environment.
 
-<p align="center">
-  <img src="./Images/Figure10.png" alt="AP at IoU 0.40 for Validation Set" style="display:inline-block; margin-right:20px;"/>
-  <img src="./Images/Figure11.png" alt="Loss Curve for Training and Validation" style="display:inline-block;"/>
-</p>
-
 ### 5. Model Deployment
 
 Once the model training and evaluation were completed, the final model was saved using **Detectron2’s export functionality** for deployment in healthcare settings. The trained model can now process chest X-rays in real-time to detect thoracic abnormalities, offering an invaluable tool for radiologists and healthcare systems aiming to improve diagnostic accuracy.
 
 ---
 
+## 8. Results and Analysis
+
+This section presents the results obtained after training and evaluating the model on the VinBigData Chest X-ray dataset. The results are analyzed based on key evaluation metrics, and the performance is visualized with relevant figures.
+
+### 1. Model Performance Metrics
+
+The model’s performance was evaluated using various metrics, including **Average Precision (AP)** at different Intersection over Union (IoU) thresholds, **F1-Score**, and **ROC-AUC**. These metrics provided a comprehensive view of how well the model performed in detecting and localizing thoracic abnormalities.
+
+#### 1.1. Average Precision (AP)
+
+The **Average Precision (AP)** is a crucial metric for object detection tasks, measuring how well the model detects abnormalities in terms of both precision and localization accuracy. The AP was computed at various IoU thresholds:
+
+- **AP at IoU 0.40**: This threshold evaluates the model’s ability to detect abnormalities with at least 40% overlap with the ground truth bounding boxes.
+- **AP at IoU 0.50 and 0.75**: Higher thresholds (50% and 75% overlap) further assess the model’s localization precision.
+
+<p align="center">
+  <img src="./Images/Figure12.png" alt="AP at IoU 0.40, 0.50, and 0.75 for different abnormality classes" />
+</p>
+
+The chart shows the AP for the different abnormality classes, with the model achieving a strong performance at IoU 0.40, and slightly lower precision at higher thresholds. This indicates that while the model is able to detect abnormalities well, it may struggle with precise localization in some cases.
+
+#### 1.2. F1-Score
+
+The **F1-Score** provides a balance between precision and recall, measuring the model's effectiveness in identifying true positives while minimizing false positives. A high F1-Score indicates that the model is correctly identifying abnormalities without over-predicting.
+
+<p align="center">
+  <img src="./Images/Figure13.png" alt="F1-Score for Thoracic Abnormality Detection" />
+</p>
+
+From the figure, the F1-Score remains consistent across most classes, showing the model's ability to generalize well across different types of abnormalities. Minor drops in performance for some abnormalities may suggest areas where additional fine-tuning or data augmentation could further improve results.
+
+#### 1.3. ROC-AUC Score
+
+The **ROC-AUC Score** evaluates the model’s capacity to distinguish between normal and abnormal cases across varying threshold settings. A high ROC-AUC score indicates the model’s ability to differentiate between patients with and without abnormalities effectively.
+
+<p align="center">
+  <img src="./Images/Figure14.png" alt="ROC-AUC Curve for Thoracic Abnormality Detection" />
+</p>
+
+The ROC-AUC score shows that the model is able to achieve strong discrimination between positive and negative cases, further confirming the model's overall robustness.
+
+### 2. Analysis of Results
+
+#### 2.1. Detection Strengths
+
+- **High Detection Rates at IoU 0.40**: The model demonstrates strong performance at lower IoU thresholds, which suggests that it is effective in identifying the presence of abnormalities, even if the localization is not perfect.
+- **Strong F1-Scores Across Classes**: The model maintains high F1-Scores, indicating that it is consistently detecting abnormalities while balancing precision and recall.
+
+#### 2.2. Areas for Improvement
+
+- **Lower AP at Higher IoU Thresholds**: The performance of the model at higher IoU thresholds (0.50 and 0.75) indicates that it struggles with highly precise localization of abnormalities. This may be improved by:
+  - Further fine-tuning of the model.
+  - Applying advanced localization techniques or model ensembling.
+  
+- **Class-Specific Challenges**: Some classes, such as **cardiomegaly** and **pleural thickening**, show slightly lower detection and localization rates. These could benefit from additional data augmentation or specialized model tuning to better capture subtle differences in these abnormalities.
+
+### 3. Visualizations of Results
+
+Below are visual examples of the model’s predictions on the test set. Each image shows the predicted bounding boxes and class labels for the detected abnormalities.
+
+<p align="center">
+  <img src="./Images/Figure15.png" alt="Predicted Abnormalities on Test Set Image 1" style="display:inline-block; margin-right:20px;"/>
+  <img src="./Images/Figure16.png" alt="Predicted Abnormalities on Test Set Image 2" style="display:inline-block;"/>
+</p>
+
+The predicted bounding boxes generally align well with the ground truth, particularly in images where the abnormalities are more distinct. However, there are a few cases where the model fails to capture the exact boundaries of smaller abnormalities, which may explain the lower AP at higher IoU thresholds.
+
+### 4. Conclusion
+
+The model has shown strong potential in automating the detection of thoracic abnormalities from chest X-rays. It performs well at detecting a variety of abnormalities at lower IoU thresholds, making it highly effective for real-world diagnostic applications where precise localization is less critical.
+
+However, there is room for improvement, particularly in the area of precise localization and in detecting abnormalities that are subtler or less well-represented in the training data. Future work could focus on:
+
+- **Improving Localization Accuracy**: Fine-tuning the model further, particularly focusing on challenging classes with low AP at higher IoU thresholds.
+- **Class-Specific Augmentation**: Increasing the focus on underperforming classes by applying targeted data augmentation strategies.
+
+<p align="center">
+  <img src="./Images/Figure17.png" alt="Final AP and F1-Score Comparisons for All Classes" />
+</p>
 
 
 
