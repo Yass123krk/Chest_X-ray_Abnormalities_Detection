@@ -215,28 +215,36 @@ The project methodology outlines the key steps taken to develop the AI-based sol
 
 ### 1. Model Architecture
 
-The deep learning model used for this project is built on top of **Detectron2**, a state-of-the-art object detection framework developed by Facebook AI Research. The architecture used is the **ResNet-50 + FPN (Feature Pyramid Network)**, which is well-suited for object detection tasks in medical imaging due to its ability to capture both high and low-level features across different image resolutions.
+The deep learning model used for this project is built on top of **Detectron2**, a state-of-the-art object detection framework developed by Facebook AI Research. The architecture employed is **ResNet-50 + FPN (Feature Pyramid Network)**, which is particularly well-suited for object detection tasks in medical imaging due to its capacity to capture both high and low-level features across various image resolutions.
 
-- **ResNet-50**: A deep residual network with 50 layers, which helps in learning complex patterns in images while avoiding issues like vanishing gradients.
-- **FPN**: A feature extraction module that aggregates information across multiple scales, allowing the model to perform better in detecting smaller abnormalities in medical images.
+- **ResNet-50**: A 50-layer deep residual network that excels in learning complex patterns in images while mitigating the challenges of vanishing gradients.
+- **FPN (Feature Pyramid Network)**: A multi-scale feature extraction module that aggregates information from different layers, enhancing the model’s capability to detect small abnormalities in medical images.
 
-The model was fine-tuned on the **VinBigData dataset**, pre-trained on the **COCO dataset** for better generalization. Fine-tuning ensures that the model learns to recognize thoracic abnormalities while leveraging the general object detection capabilities from COCO pretraining.
+The model was **fine-tuned** on the **VinBigData dataset**, leveraging pre-trained weights from the **COCO dataset** to boost generalization. Fine-tuning helps the model focus on learning the specific task of detecting thoracic abnormalities while benefiting from the general object detection knowledge obtained through COCO pretraining.
 
 ### 2. Training Procedure
 
-The model was trained using the **Adam optimizer**, with a learning rate scheduler that adjusts the rate dynamically based on validation performance. The training process involved several critical steps:
+The training pipeline incorporated various strategies to optimize the model’s performance:
 
-- **Data Augmentation**: As discussed earlier, augmentation techniques were applied during training to prevent overfitting and to expose the model to a diverse set of images.
-- **Loss Function**: A **Cross-Entropy Loss** function was used for classification tasks, and **Smooth L1 Loss** for bounding box regression to ensure accurate localization of abnormalities.
-- **Batch Size**: The model was trained with a batch size of 16 to maintain a balance between training speed and memory usage, especially when using GPUs.
+- **Optimizer**: The **Adam optimizer** was used to ensure smooth convergence during training. A learning rate scheduler dynamically adjusted the learning rate based on validation performance, preventing overfitting and facilitating better convergence.
+  
+- **Data Augmentation**: As discussed earlier, diverse data augmentation techniques were applied to increase the variety of input data during training. This prevents the model from overfitting to the training data and improves its generalization on unseen data.
+
+- **Loss Function**: A combination of loss functions was employed:
+  - **Cross-Entropy Loss** for classification tasks (predicting the presence of abnormalities).
+  - **Smooth L1 Loss** for bounding box regression, ensuring the accurate localization of abnormalities in the chest X-ray images.
+
+- **Batch Size**: The model was trained with a batch size of **16**, balancing the computational efficiency and GPU memory usage for accelerated training.
 
 ### 3. Evaluation Metrics
 
-Several metrics were employed to evaluate the performance of the trained model:
+The model’s performance was evaluated using various industry-standard metrics:
 
-- **Average Precision (AP) at IoU thresholds**: Used to evaluate how well the model detects and localizes thoracic abnormalities. We report AP at IoU thresholds of **0.40**, **0.50**, and **0.75** for different lesion types.
-- **F1-Score**: Combines precision and recall, measuring the model’s overall performance in detecting true positives while minimizing false positives.
-- **ROC-AUC Score**: Evaluates how well the model distinguishes between abnormal and normal cases across different threshold settings.
+- **Average Precision (AP) at IoU thresholds**: A key metric for object detection models, used to measure the model’s ability to accurately detect and localize abnormalities. AP was calculated at **IoU thresholds of 0.40, 0.50, and 0.75**, providing insight into detection precision across varying overlap thresholds.
+
+- **F1-Score**: This metric is a balance between precision and recall, measuring the model’s effectiveness in detecting true positives while minimizing false positives.
+
+- **ROC-AUC Score**: The **Receiver Operating Characteristic - Area Under the Curve** was used to evaluate the model’s capacity to distinguish between normal and abnormal cases, offering a robust measure of overall model performance.
 
 <p align="center">
   <img src="./Images/Figure9.png" alt="Model Training Process and Loss Curve" />
@@ -244,15 +252,22 @@ Several metrics were employed to evaluate the performance of the trained model:
 
 ### 4. Validation and Testing
 
-The model was validated on a holdout set of images from the **VinBigData** dataset. Additionally, it was tested on unseen data to ensure that it can generalize well beyond the training set.
+Once trained, the model was subjected to validation and testing processes to ensure its robustness and real-world applicability:
 
-- **Validation**: Performance was monitored during training using the validation set, with adjustments made to hyperparameters as needed.
-- **Testing**: The model was then evaluated on the test set, which was not exposed during training, providing a reliable estimate of its real-world performance.
+- **Validation**: A holdout validation set from the **VinBigData dataset** was used during training to monitor model performance and adjust hyperparameters. The validation set played a key role in preventing overfitting and fine-tuning the model’s learning capacity.
 
+- **Testing**: The model’s final performance was evaluated on an unseen test set to assess its generalization capability. This provided a reliable indicator of how well the model would perform in real-world scenarios outside the controlled training environment.
+
+<p align="center">
+  <img src="./Images/Figure10.png" alt="AP at IoU 0.40 for Validation Set" style="display:inline-block; margin-right:20px;"/>
+  <img src="./Images/Figure11.png" alt="Loss Curve for Training and Validation" style="display:inline-block;"/>
+</p>
 
 ### 5. Model Deployment
 
-Once the model was trained and evaluated, it was saved for deployment using **Detectron2’s model export functionality**. The model can now be used to process chest X-rays in real-time for abnormality detection, offering a valuable tool for healthcare systems.
+Once the model training and evaluation were completed, the final model was saved using **Detectron2’s export functionality** for deployment in healthcare settings. The trained model can now process chest X-rays in real-time to detect thoracic abnormalities, offering an invaluable tool for radiologists and healthcare systems aiming to improve diagnostic accuracy.
+
+---
 
 
 
