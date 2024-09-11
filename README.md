@@ -65,6 +65,47 @@ Chest_X-ray_Abnormalities_Detection/
 ├── Report.pdf                                   # Full project report detailing methodology and results
 └── requirements.txt                             # Project dependencies and libraries
 ```
+---
+## Dataset
+
+### 1. VinBigData Chest X-ray Dataset
+The dataset used for this project is the **VinBigData Chest X-ray Dataset**, consisting of 18,000 chest X-ray images. These images are annotated with 14 different thoracic abnormalities, such as:
+
+- Aortic enlargement
+- Atelectasis
+- Cardiomegaly
+- Pleural effusion
+- Pulmonary fibrosis
+
+This dataset serves as a comprehensive foundation for training models to detect these abnormalities, improving diagnostic accuracy through automation.
+
+<p align="center">
+  <img src="./Images/Figure1.png" alt="Distribution of Thoracic Abnormalities in the Dataset" />
+</p>
+
+### 2. DICOM Format and Image Conversion
+The original chest X-ray images are stored in **DICOM (Digital Imaging and Communications in Medicine)** format, which is the standard for storing medical imaging data. DICOM images contain metadata about the image, patient, and study, which is essential in a clinical setting but less relevant for machine learning model training.
+
+To simplify the processing pipeline, the DICOM images are converted to **PNG** format. PNG images are smaller and easier to handle while retaining the necessary quality for accurate anomaly detection. The conversion allows for faster data loading and efficient use of GPU resources during model training.
+
+<p align="center">
+  <img src="./Images/Figure5.png" alt="DICOM to PNG Conversion Example" />
+</p>
+
+<p align="center">
+  <img src="./Images/Figure6.png" alt="Comparison of Original vs. Resized X-ray Images" />
+</p>
+
+### 3. Data Split
+The dataset is split into three subsets to allow for training, validation, and testing:
+
+- **Training Set**: The majority of the data is used to train the model, learning patterns associated with various abnormalities.
+- **Validation Set**: A smaller portion is reserved for fine-tuning hyperparameters and assessing model performance during training.
+- **Testing Set**: The final subset is used for evaluating the model's ability to generalize to new, unseen data.
+
+<p align="center">
+  <img src="./Images/Figure3.png" alt="Bounding Box Area Distribution in the Dataset" />
+</p>
 
 
 
