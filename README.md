@@ -22,7 +22,7 @@ By automating the detection process, this project helps reduce the workload on r
 ## Repository Structure
 
 The repository is organized as follows:
-
+```bash
 Chest_X-ray_Abnormalities_Detection/
 │
 ├── Images/                                      # Contains figures used in the README and project report
@@ -64,3 +64,8 @@ Chest_X-ray_Abnormalities_Detection/
 ├── ModelTesting.ipynb                           # Notebook for testing and evaluating the trained model
 ├── Report.pdf                                   # Full project report detailing methodology and results
 └── requirements.txt                             # Project dependencies and libraries
+```
+
+
+
+
