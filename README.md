@@ -5,6 +5,7 @@
 ## Project Overview
 
 ### 1. Introduction
+
 The **VinBigData Chest X-ray Abnormalities Detection** project focuses on building an AI-based solution for detecting thoracic abnormalities from chest X-ray images. This project utilizes the **VinBigData dataset**, which includes a wide range of annotated chest conditions, aiming to improve diagnostic accuracy in the medical field.
 
 This project is based on the [VinBigData Chest X-ray Abnormalities Detection Challenge](https://www.kaggle.com/c/vinbigdata-chest-xray-abnormalities-detection/overview) hosted on Kaggle. The challenge invited over 1,200 teams to develop models that could classify and localize 14 thoracic abnormalities using 18,000 expert-annotated X-ray images.
@@ -16,6 +17,7 @@ By automating the detection process, this project helps reduce the workload on r
 </p>
 
 ### 2. Key Goals
+
 - **Develop a robust AI model** capable of detecting 14 specific thoracic conditions, including aortic enlargement, atelectasis, and cardiomegaly.
 - **Alleviate the workload on radiologists** by providing an AI-assisted tool that can quickly and accurately identify abnormalities in chest X-rays.
 - **Ensure consistent and accurate diagnostic predictions**, improving the reliability of healthcare diagnostics and reducing variability in radiologic interpretation.
@@ -77,17 +79,20 @@ To run this project efficiently, a system with adequate computational resources 
 <p align="center"> <img src="./Images/Figure4.png" alt="Tools and Libraries Used in the Project" /> </p>
 
 ### 1. Hardware Requirements
+
 - **Minimum RAM**: 8 GB (16 GB recommended)
 - **Processor**: Quad-core CPU or higher (recommended for parallel processing during model training)
 - **Storage**: At least 50 GB of free disk space for datasets, models, and results
 - **GPU (optional but highly recommended)**: A CUDA-compatible GPU (e.g., NVIDIA) is suggested for faster training of the deep learning models, particularly when using TensorFlow or PyTorch.
 
 ### 2. Software Requirements
+
 - **Operating System**: Windows, macOS, or Linux
 - **Python Version**: Python 3.8 or higher is required due to dependencies on newer libraries.
 - **CUDA Toolkit (optional)**: Required for leveraging GPU-based training (only if using a compatible NVIDIA GPU)
 
 ### 3. Key Libraries and Tools
+
 This project relies on several open-source libraries and tools to preprocess the data, train the model, and evaluate its performance.
 
 #### 3.1. Programming Languages
@@ -116,6 +121,7 @@ pip install -r requirements.txt
 ## Dataset
 
 ### 1. VinBigData Chest X-ray Dataset
+
 The dataset used for this project is the **VinBigData Chest X-ray Dataset**, consisting of 18,000 chest X-ray images. These images are annotated with 14 different thoracic abnormalities:
 
 - Aortic enlargement
@@ -141,6 +147,7 @@ This dataset provides a comprehensive foundation for training models to detect v
 
 
 ### 2. Data Preprocessing
+
 The preprocessing of this dataset is pivotal to ensuring its compatibility with machine learning models and optimizing the computational load during training and analysis. This stage encompasses several essential steps:
 
 ### 2.1. Conversion to PNG
@@ -166,6 +173,7 @@ Some images in the dataset exhibited **monochromatism**, which could skew the re
 </p>
 
 ### 3. Data Split
+
 The dataset is divided into three subsets to allow for training, validation, and testing:
 
 - **Training Set**: The majority of the data is used for training the model, learning the patterns associated with the different abnormalities.
@@ -255,10 +263,6 @@ To measure the model's performance, a combination of advanced evaluation tools a
   
 - **ROC-AUC Score**: Used to evaluate how well the model distinguishes between normal and abnormal cases across various thresholds.
 
-<p align="center">
-  <img src="./Images/Figure9.png" alt="Model Training Process and Loss Curve" />
-</p>
-
 ### 4. Validation and Testing
 
 Once trained, the model was subjected to validation and testing processes to ensure its robustness and real-world applicability:
@@ -273,11 +277,12 @@ Once the model training and evaluation were completed, the final model was saved
 
 ---
 
-## 8. Results and Analysis
+## Results and Analysis
 
 This section presents the results obtained after training and evaluating the model on the VinBigData Chest X-ray dataset. The results are analyzed based on key evaluation metrics, and the performance is visualized with relevant figures.
 
 ### 1. Bounding Box Area Distribution
+
 The distribution of bounding box areas for various abnormalities was analyzed. Some abnormalities, such as **Pulmonary Fibrosis**, cover larger areas, while others, like **Nodule/Mass**, tend to cover smaller regions.
 
 <p align="center">
@@ -287,9 +292,8 @@ The distribution of bounding box areas for various abnormalities was analyzed. S
 **Analysis**:  
 The model had to deal with both large and small regions of interest. Larger abnormalities are typically easier to detect, but smaller abnormalities pose a challenge, requiring the model to be highly sensitive to minute features. This variability highlights the complexity of the dataset and underscores the importance of a flexible architecture like **R50-FPN**, which captures features at multiple scales.
 
----
-
 ### 2. Activation Maps of Detected Abnormalities
+
 The heatmaps below display activation maps for the thoracic abnormalities detected by the model. These maps show where the model focused its attention during detection, providing insights into how the model localizes abnormalities.
 
 <p align="center">
@@ -299,9 +303,8 @@ The heatmaps below display activation maps for the thoracic abnormalities detect
 **Analysis**:  
 The heatmaps reveal that the model accurately identified key regions of the chest associated with different abnormalities. This indicates that the model has effectively learned relevant features from the dataset and can distinguish between multiple abnormal conditions based on location and visual cues. The focus on relevant regions provides confidence in the model's detection abilities, especially for larger abnormalities.
 
----
-
 ### 3. Model Performance: Loss Curves and Average Precision
+
 Model performance during training was tracked using loss curves and average precision (AP40) metrics. The loss curves highlight the training and validation losses, while AP40 tracks detection performance at an IoU threshold of 0.40.
 
 <p align="center">
@@ -312,9 +315,8 @@ Model performance during training was tracked using loss curves and average prec
 **Analysis**:  
 The steady decline in both training and validation losses indicates consistent model improvement without overfitting. AP40 scores also improved over time, demonstrating the model's increasing ability to detect thoracic abnormalities with balanced precision and recall. The inclusion of **LossEvalHook** helped in continuous monitoring of validation loss, further ensuring that the model does not overfit during training.
 
----
-
 ### 4. Model Predictions
+
 The trained model demonstrated its ability to predict bounding boxes around abnormalities in chest X-ray images. Below are examples of model predictions, highlighting the model’s accuracy in detecting **Cardiomegaly**, **Aortic Enlargement**, and other thoracic conditions.
 
 <p align="center">
@@ -324,9 +326,10 @@ The trained model demonstrated its ability to predict bounding boxes around abno
 **Analysis**:  
 The model successfully detected and localized thoracic abnormalities with high accuracy, particularly for larger and more prominent conditions. However, smaller abnormalities like **Nodules/Mass** posed challenges, which could be addressed with further fine-tuning or additional augmentation techniques.
 
----
+
 
 ### 5. Prediction Strings
+
 Below is an example of a **prediction string** output from the model, which includes confidence scores, bounding box coordinates, and the abnormalities detected for each test image.
 
 <p align="center">
@@ -336,7 +339,6 @@ Below is an example of a **prediction string** output from the model, which incl
 **Analysis**:  
 The prediction strings provide a structured and interpretable output, with confidence scores offering insight into the model’s certainty for each detected abnormality. This information is critical for healthcare professionals to review and act upon, enhancing the model's real-world usability in clinical settings.
 
----
 
 ### 6. Further Insights and Limitations
 Despite the robust performance, there are several aspects that can be further explored:
@@ -345,6 +347,102 @@ Despite the robust performance, there are several aspects that can be further ex
 
 **General Analysis**:
 The overall results showcase a strong, well-rounded model capable of detecting a wide range of thoracic abnormalities with considerable accuracy. By using **COCOEvaluator**, the performance metrics were effectively captured, and the model proved to generalize well on the unseen test data. However, smaller abnormality detection remains an area for future improvement, potentially involving custom augmentation techniques or more class-specific training.
+
+---
+
+## Conclusion
+
+The **VinBigData Chest X-ray Abnormalities Detection** project demonstrates the potential of AI-driven object detection models in assisting radiologists with medical image analysis. By fine-tuning a robust architecture such as **ResNet-50 with FPN**, the model was able to detect 14 different thoracic abnormalities with significant accuracy, reducing the diagnostic workload and enabling quicker identification of critical conditions. The integration of advanced data augmentation techniques improved model generalization, while tools like **COCOEvaluator** provided comprehensive performance insights.
+
+Key takeaways include:
+- The importance of preprocessing and resizing for computational efficiency.
+- The effectiveness of data augmentation in improving model performance across diverse medical conditions.
+- The model's ability to focus on relevant image regions, as seen in the heatmaps, which provides a level of interpretability to its predictions.
+- The challenges associated with detecting smaller abnormalities, highlighting areas for further research and enhancement.
+
+While the model performs well overall, future iterations could involve augmenting the training data with more examples of smaller abnormalities, fine-tuning specific abnormality detection further, or experimenting with other architectures to further enhance detection accuracy.
+
+---
+
+## How to Run the Project
+
+To run this project on your local machine, follow the steps outlined below. Ensure you have the necessary software and hardware requirements as outlined in the **System Requirements** section.
+
+### 1. Clone the Repository
+
+Start by cloning the GitHub repository to your local machine:
+```bash
+git clone https://github.com/your-username/Chest_Xray_Abnormalities_Detection.git
+```
+### 2. Navigate to the Project Directory
+
+Once the repository is cloned, navigate to the project folder:
+```bash
+cd Chest_Xray_Abnormalities_Detection
+```
+
+### 3. Install Required Libraries
+
+Ensure that you have Python 3.8 or higher installed. You can install the required libraries using the `requirements.txt` file:
+```bash
+pip install -r requirements.txt
+```
+This will install essential libraries like PyTorch, Detectron2, Albumentations, OpenCV, Matplotlib, and others needed for data handling, augmentation, and training.
+
+### 4. Prepare the Dataset
+
+Make sure you have access to the VinBigData Chest X-ray dataset. Once downloaded, place the dataset in the corresponding folders:
+- Raw images in `the Proc_data/` folder.
+- Resized images in the `proc_data_512/` folder.
+
+### 5. Data Preprocessing
+
+To preprocess the dataset, such as resizing and normalization, run the `DataResize.ipynb` Jupyter notebook:
+```bash
+jupyter notebook DataResize.ipynb
+```
+This notebook will help prepare the data for model training, ensuring all images are in the right format and size.
+
+### 6. Visualize the Data
+
+For visualizing the preprocessed data, distributions, and bounding boxes, execute the `DataVisualisation.ipynb` notebook:
+```bash
+jupyter notebook DataVisualisation.ipynb
+```
+This notebook will give you insight into the dataset before training the model.
+
+### 7. Train the Model
+
+To train the model using the processed dataset, execute the `ModelTraining.ipynb` notebook:
+```bash
+jupyter notebook ModelTraining.ipynb
+```
+This notebook initializes the training process and fine-tunes the pre-trained model using the training data. Adjustments such as learning rate or batch size can be modified within the notebook.
+
+### 8. Test the Model
+
+After training, the model can be evaluated on the test set by running the `ModelTesting.ipynb` notebook:
+```bash
+jupyter notebook ModelTesting.ipynb
+```
+This notebook will generate predictions and performance metrics, allowing you to evaluate the model's accuracy, precision, and recall on the test data.
+
+### 9. Review Results
+
+All results and logs from the model's performance are saved in the `results/` directory. This folder contains:
+- Bounding box predictions for the test set.
+- Performance metrics like Average Precision (AP) and Loss.
+- Visualization of predictions on the test X-ray images.
+Review these results to assess the model's performance in detecting abnormalities in chest X-rays.
+
+### 10. Make Predictions on New Data
+
+To make predictions on new chest X-ray images, use the trained model saved in the `test_512x512/` folder. You can run a prediction script on new images like this:
+
+```bash
+python predict.py --image_path path_to_new_image
+```
+This will output the predicted bounding boxes and abnormality labels for the new X-ray image, indicating any detected abnormalities.
 
 
 
