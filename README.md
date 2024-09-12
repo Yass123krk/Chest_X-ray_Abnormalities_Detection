@@ -212,6 +212,11 @@ Data augmentation plays a critical role in improving the model's robustness by a
 ## Methodology
 
 The project methodology outlines the key steps taken to develop the AI-based solution for detecting thoracic abnormalities in chest X-ray images. This process covers everything from dataset preparation to model evaluation and testing.
+The model training workflow follows a well-structured process, including data augmentation, Detectron2 setup, model training, and evaluation. Detectron2's architecture, combined with the advanced image augmentations provided by Albumentations, helps ensure the model's robustness and generalization on unseen data.
+
+<p align="center">
+  <img src="./Images/Figure7.png" alt="Model Training Workflow" />
+</p>
 
 ### 1. Model Architecture
 
@@ -272,81 +277,75 @@ Once the model training and evaluation were completed, the final model was saved
 
 This section presents the results obtained after training and evaluating the model on the VinBigData Chest X-ray dataset. The results are analyzed based on key evaluation metrics, and the performance is visualized with relevant figures.
 
-### 1. Model Performance Metrics
-
-The model’s performance was evaluated using various metrics, including **Average Precision (AP)** at different Intersection over Union (IoU) thresholds, **F1-Score**, and **ROC-AUC**. These metrics provided a comprehensive view of how well the model performed in detecting and localizing thoracic abnormalities.
-
-#### 1.1. Average Precision (AP)
-
-The **Average Precision (AP)** is a crucial metric for object detection tasks, measuring how well the model detects abnormalities in terms of both precision and localization accuracy. The AP was computed at various IoU thresholds:
-
-- **AP at IoU 0.40**: This threshold evaluates the model’s ability to detect abnormalities with at least 40% overlap with the ground truth bounding boxes.
-- **AP at IoU 0.50 and 0.75**: Higher thresholds (50% and 75% overlap) further assess the model’s localization precision.
+### 1. Bounding Box Area Distribution
+The distribution of bounding box areas for various abnormalities was analyzed. Some abnormalities, such as **Pulmonary Fibrosis**, cover larger areas, while others, like **Nodule/Mass**, tend to cover smaller regions.
 
 <p align="center">
-  <img src="./Images/Figure12.png" alt="AP at IoU 0.40, 0.50, and 0.75 for different abnormality classes" />
+  <img src="./Images/Figure8.png" alt="Bounding Box Area Distribution" />
 </p>
 
-The chart shows the AP for the different abnormality classes, with the model achieving a strong performance at IoU 0.40, and slightly lower precision at higher thresholds. This indicates that while the model is able to detect abnormalities well, it may struggle with precise localization in some cases.
+**Analysis**:  
+The model had to deal with both large and small regions of interest. Larger abnormalities are typically easier to detect, but smaller abnormalities pose a challenge, requiring the model to be highly sensitive to minute features. This variability highlights the complexity of the dataset and underscores the importance of a flexible architecture like **R50-FPN**, which captures features at multiple scales.
 
-#### 1.2. F1-Score
+---
 
-The **F1-Score** provides a balance between precision and recall, measuring the model's effectiveness in identifying true positives while minimizing false positives. A high F1-Score indicates that the model is correctly identifying abnormalities without over-predicting.
+### 2. Activation Maps of Detected Abnormalities
+The heatmaps below display activation maps for the thoracic abnormalities detected by the model. These maps show where the model focused its attention during detection, providing insights into how the model localizes abnormalities.
 
 <p align="center">
-  <img src="./Images/Figure13.png" alt="F1-Score for Thoracic Abnormality Detection" />
+  <img src="./Images/Figure9.png" alt="Average Activation Maps for Abnormalities" />
 </p>
 
-From the figure, the F1-Score remains consistent across most classes, showing the model's ability to generalize well across different types of abnormalities. Minor drops in performance for some abnormalities may suggest areas where additional fine-tuning or data augmentation could further improve results.
+**Analysis**:  
+The heatmaps reveal that the model accurately identified key regions of the chest associated with different abnormalities. This indicates that the model has effectively learned relevant features from the dataset and can distinguish between multiple abnormal conditions based on location and visual cues. The focus on relevant regions provides confidence in the model's detection abilities, especially for larger abnormalities.
 
-#### 1.3. ROC-AUC Score
+---
 
-The **ROC-AUC Score** evaluates the model’s capacity to distinguish between normal and abnormal cases across varying threshold settings. A high ROC-AUC score indicates the model’s ability to differentiate between patients with and without abnormalities effectively.
+### 3. Model Performance: Loss Curves and Average Precision
+Model performance during training was tracked using loss curves and average precision (AP40) metrics. The loss curves highlight the training and validation losses, while AP40 tracks detection performance at an IoU threshold of 0.40.
 
 <p align="center">
-  <img src="./Images/Figure14.png" alt="ROC-AUC Curve for Thoracic Abnormality Detection" />
+  <img src="./Images/Figure10.png" alt="Training and Validation Loss Curve" />
+  <img src="./Images/Figure11.png" alt="Average Precision at AP40" />
 </p>
 
-The ROC-AUC score shows that the model is able to achieve strong discrimination between positive and negative cases, further confirming the model's overall robustness.
+**Analysis**:  
+The steady decline in both training and validation losses indicates consistent model improvement without overfitting. AP40 scores also improved over time, demonstrating the model's increasing ability to detect thoracic abnormalities with balanced precision and recall. The inclusion of **LossEvalHook** helped in continuous monitoring of validation loss, further ensuring that the model does not overfit during training.
 
-### 2. Analysis of Results
+---
 
-#### 2.1. Detection Strengths
-
-- **High Detection Rates at IoU 0.40**: The model demonstrates strong performance at lower IoU thresholds, which suggests that it is effective in identifying the presence of abnormalities, even if the localization is not perfect.
-- **Strong F1-Scores Across Classes**: The model maintains high F1-Scores, indicating that it is consistently detecting abnormalities while balancing precision and recall.
-
-#### 2.2. Areas for Improvement
-
-- **Lower AP at Higher IoU Thresholds**: The performance of the model at higher IoU thresholds (0.50 and 0.75) indicates that it struggles with highly precise localization of abnormalities. This may be improved by:
-  - Further fine-tuning of the model.
-  - Applying advanced localization techniques or model ensembling.
-  
-- **Class-Specific Challenges**: Some classes, such as **cardiomegaly** and **pleural thickening**, show slightly lower detection and localization rates. These could benefit from additional data augmentation or specialized model tuning to better capture subtle differences in these abnormalities.
-
-### 3. Visualizations of Results
-
-Below are visual examples of the model’s predictions on the test set. Each image shows the predicted bounding boxes and class labels for the detected abnormalities.
+### 4. Model Predictions
+The trained model demonstrated its ability to predict bounding boxes around abnormalities in chest X-ray images. Below are examples of model predictions, highlighting the model’s accuracy in detecting **Cardiomegaly**, **Aortic Enlargement**, and other thoracic conditions.
 
 <p align="center">
-  <img src="./Images/Figure15.png" alt="Predicted Abnormalities on Test Set Image 1" style="display:inline-block; margin-right:20px;"/>
-  <img src="./Images/Figure16.png" alt="Predicted Abnormalities on Test Set Image 2" style="display:inline-block;"/>
+  <img src="./Images/Figure12.png" alt="Model Predictions on Test Images" />
 </p>
 
-The predicted bounding boxes generally align well with the ground truth, particularly in images where the abnormalities are more distinct. However, there are a few cases where the model fails to capture the exact boundaries of smaller abnormalities, which may explain the lower AP at higher IoU thresholds.
+**Analysis**:  
+The model successfully detected and localized thoracic abnormalities with high accuracy, particularly for larger and more prominent conditions. However, smaller abnormalities like **Nodules/Mass** posed challenges, which could be addressed with further fine-tuning or additional augmentation techniques.
 
-### 4. Conclusion
+---
 
-The model has shown strong potential in automating the detection of thoracic abnormalities from chest X-rays. It performs well at detecting a variety of abnormalities at lower IoU thresholds, making it highly effective for real-world diagnostic applications where precise localization is less critical.
-
-However, there is room for improvement, particularly in the area of precise localization and in detecting abnormalities that are subtler or less well-represented in the training data. Future work could focus on:
-
-- **Improving Localization Accuracy**: Fine-tuning the model further, particularly focusing on challenging classes with low AP at higher IoU thresholds.
-- **Class-Specific Augmentation**: Increasing the focus on underperforming classes by applying targeted data augmentation strategies.
+### 5. Prediction Strings
+Below is an example of a **prediction string** output from the model, which includes confidence scores, bounding box coordinates, and the abnormalities detected for each test image.
 
 <p align="center">
-  <img src="./Images/Figure17.png" alt="Final AP and F1-Score Comparisons for All Classes" />
+  <img src="./Images/Figure13.png" alt="Prediction String Output" />
 </p>
+
+**Analysis**:  
+The prediction strings provide a structured and interpretable output, with confidence scores offering insight into the model’s certainty for each detected abnormality. This information is critical for healthcare professionals to review and act upon, enhancing the model's real-world usability in clinical settings.
+
+---
+
+### 6. Further Insights and Limitations
+Despite the robust performance, there are several aspects that can be further explored:
+- **Data Diversity**: The model performs better on larger and more pronounced abnormalities but struggles with smaller ones, suggesting the need for more specific augmentation or additional data targeting smaller abnormalities.
+- **Fine-tuning**: Additional rounds of fine-tuning, particularly on specific abnormality classes, could further boost precision.
+
+**General Analysis**:
+The overall results showcase a strong, well-rounded model capable of detecting a wide range of thoracic abnormalities with considerable accuracy. By using **COCOEvaluator**, the performance metrics were effectively captured, and the model proved to generalize well on the unseen test data. However, smaller abnormality detection remains an area for future improvement, potentially involving custom augmentation techniques or more class-specific training.
+
 
 
 
